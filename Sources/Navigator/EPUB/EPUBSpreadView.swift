@@ -15,6 +15,9 @@ protocol EPUBSpreadViewDelegate: AnyObject {
     /// Called when the user tapped on the spread contents.
     func spreadView(_ spreadView: EPUBSpreadView, didTapAt point: CGPoint)
 
+    /// Called when the user tapped on the spread text.
+    func spreadView(_ spreadView: EPUBSpreadView, didTapAtText text: String)
+
     /// Called when the user tapped on an external link.
     func spreadView(_ spreadView: EPUBSpreadView, didTapOnExternalURL url: URL)
 
@@ -198,6 +201,10 @@ class EPUBSpreadView: UIView, Loggable, PageView {
         if !clickEvent.defaultPrevented, clickEvent.interactiveElement == nil {
             let point = convertPointToNavigatorSpace(clickEvent.point)
             delegate?.spreadView(self, didTapAt: point)
+
+            if let text = clickEvent.text, !text.isEmpty {
+                delegate?.spreadView(self, didTapAtText: text)
+            }
         }
     }
 
@@ -538,12 +545,14 @@ struct ClickEvent {
     let point: CGPoint
     let targetElement: String
     let interactiveElement: String?
+    let text: String?
 
     init(dict: [String: Any]) {
         defaultPrevented = dict["defaultPrevented"] as? Bool ?? false
         point = CGPoint(x: dict["x"] as? Double ?? 0, y: dict["y"] as? Double ?? 0)
         targetElement = dict["targetElement"] as? String ?? ""
         interactiveElement = dict["interactiveElement"] as? String
+        text = dict["text"] as? String
     }
 
     init?(json: Any?) {

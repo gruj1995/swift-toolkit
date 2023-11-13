@@ -1010,6 +1010,10 @@ extension EPUBNavigatorViewController: EPUBSpreadViewDelegate {
 //        }
     }
 
+    func spreadView(_ spreadView: EPUBSpreadView, didTapAtText text: String) {
+        delegate?.navigator(self, didTapAtText: text)
+    }
+
     func spreadView(_ spreadView: EPUBSpreadView, didPressKey event: KeyEvent) {
         didPressKey(event)
     }
@@ -1166,6 +1170,7 @@ extension EPUBNavigatorViewController: PaginationViewDelegate {
     func paginationView(_ paginationView: PaginationView, pageViewAtIndex index: Int) -> (UIView & PageView)? {
         let spread = spreads[index]
         let spreadViewType = (spread.layout == .fixed) ? EPUBFixedSpreadView.self : EPUBReflowableSpreadView.self
+
         let spreadView = spreadViewType.init(
             viewModel: viewModel,
             spread: spread,
