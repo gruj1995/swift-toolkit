@@ -16,7 +16,7 @@ protocol EPUBSpreadViewDelegate: AnyObject {
     func spreadView(_ spreadView: EPUBSpreadView, didTapAt point: CGPoint)
 
     /// Called when the user tapped on the spread text.
-    func spreadView(_ spreadView: EPUBSpreadView, didTapAtText text: String)
+    func spreadView(_ spreadView: EPUBSpreadView, didTapAtText text: String?)
 
     /// Called when the user tapped on an external link.
     func spreadView(_ spreadView: EPUBSpreadView, didTapOnExternalURL url: URL)
@@ -199,12 +199,10 @@ class EPUBSpreadView: UIView, Loggable, PageView {
 
         // Ignores taps on interactive elements, or if the script prevents the default behavior.
         if !clickEvent.defaultPrevented, clickEvent.interactiveElement == nil {
+            delegate?.spreadView(self, didTapAtText: clickEvent.text)
+
             let point = convertPointToNavigatorSpace(clickEvent.point)
             delegate?.spreadView(self, didTapAt: point)
-
-            if let text = clickEvent.text, !text.isEmpty {
-                delegate?.spreadView(self, didTapAtText: text)
-            }
         }
     }
 

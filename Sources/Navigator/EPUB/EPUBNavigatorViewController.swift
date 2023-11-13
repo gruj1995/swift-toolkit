@@ -1010,7 +1010,7 @@ extension EPUBNavigatorViewController: EPUBSpreadViewDelegate {
 //        }
     }
 
-    func spreadView(_ spreadView: EPUBSpreadView, didTapAtText text: String) {
+    func spreadView(_ spreadView: EPUBSpreadView, didTapAtText text: String?) {
         delegate?.navigator(self, didTapAtText: text)
     }
 

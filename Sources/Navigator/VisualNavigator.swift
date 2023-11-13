@@ -102,7 +102,7 @@ public protocol VisualNavigatorDelegate: NavigatorDelegate {
 
     /// Called when the user tapped the publication, and it didn't trigger any
     /// internal action. The text is relative to the navigator's view.
-    func navigator(_ navigator: VisualNavigator, didTapAtText text: String)
+    func navigator(_ navigator: VisualNavigator, didTapAtText text: String?)
 
     /// Called when the user pressed a key down and it was not handled by the
     /// resource.
@@ -128,7 +128,7 @@ public extension VisualNavigatorDelegate {
         // Optional
     }
 
-    func navigator(_ navigator: VisualNavigator, didTapAtText text: String) {
+    func navigator(_ navigator: VisualNavigator, didTapAtText text: String?) {
         // Optional
     }
 
