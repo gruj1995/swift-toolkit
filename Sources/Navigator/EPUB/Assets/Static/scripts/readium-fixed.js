@@ -1720,12 +1720,17 @@ function onClick(event) {
     x: event.clientX,
     y: event.clientY
   });
+
+  // 找到位於點擊位置的文字
+  const word = getWordAtPoint(event);
+
   let clickEvent = {
     defaultPrevented: event.defaultPrevented,
     x: point.x,
     y: point.y,
     targetElement: event.target.outerHTML,
-    interactiveElement: (0,_dom__WEBPACK_IMPORTED_MODULE_2__.findNearestInteractiveElement)(event.target)
+    interactiveElement: (0,_dom__WEBPACK_IMPORTED_MODULE_2__.findNearestInteractiveElement)(event.target),
+    text: word
   };
   if ((0,_decorator__WEBPACK_IMPORTED_MODULE_0__.handleDecorationClickEvent)(event, clickEvent)) {
     return;
@@ -1739,6 +1744,55 @@ function onClick(event) {
   // We don't want to disable the default WebView behavior as it breaks some features without bringing any value.
   // event.stopPropagation();
   // event.preventDefault();
+}
+
+// 取得點擊位置的文字
+function getWordAtPoint(event) {
+    let range;
+    let textNode;
+    let offset;
+
+    // 檢查浏覽器是否支持 document.caretPositionFromPoint 方法
+    if (document.caretPositionFromPoint) {
+        range = document.caretPositionFromPoint(event.clientX, event.clientY);
+        textNode = range.offsetNode;
+        offset = range.offset;
+    }
+    // 檢查浏覽器是否支持 document.caretRangeFromPoint 方法（WebKit 浏览器的专有方法）
+    else if (document.caretRangeFromPoint) {
+        range = document.caretRangeFromPoint(event.clientX, event.clientY);
+        textNode = range.startContainer;
+        offset = range.startOffset;
+    }
+    // 如果上述方法都不支持，不执行任何操作
+    else {
+        throw new Error("當前瀏覽器不支援獲取點擊位置的文字。");
+    }
+
+    // 只拆分 TEXT_NODE 類型的節點
+    if (textNode?.nodeType === 3) {
+        // 獲取包含單詞的文本
+        const text = textNode.textContent;
+        // 確定點擊位置所在的單詞(匹配多種語言)
+        const wordBoundaryRegex = /[\p{L}'’]+/gu;
+        let match;
+        let clickedWord = null;
+
+        while ((match = wordBoundaryRegex.exec(text)) !== null) {
+            const word = match[0];
+            const wordStartOffset = match.index;
+            const wordEndOffset = wordStartOffset + word.length;
+
+            if (offset >= wordStartOffset && offset <= wordEndOffset) {
+                clickedWord = word;
+                break;
+            }
+        }
+
+        return clickedWord; // 返回點擊的單詞
+    }
+
+    return null;
 }
 
 /***/ }),
