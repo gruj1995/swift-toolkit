@@ -43,7 +43,7 @@ extension ReadiumCSS {
             darkenImages: settings.imageFilter == .darken,
             invertImages: settings.imageFilter == .invert,
             textColor: settings.textColor.map { CSSIntColor($0.rawValue) },
-            backgroundColor: settings.backgroundColor.map { CSSIntColor($0.rawValue) },
+            backgroundColor: CSSIntColor(settings.effectiveBackgroundColor.rawValue),
             fontOverride: settings.fontFamily != nil || settings.textNormalization,
             fontFamily: settings.fontFamily.map(resolveFontStack),
             fontSize: CSSPercentLength(settings.fontSize),

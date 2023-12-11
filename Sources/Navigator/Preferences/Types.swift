@@ -107,7 +107,7 @@ public enum Theme: String, Codable, Hashable {
     private static let dayBackgroundColor = Color(hex: "#FFFFFF")!
     // https://github.com/readium/readium-css/blob/master/css/src/modules/ReadiumCSS-night_mode.css
     private static let nightContentColor = Color(hex: "#FEFEFE")!
-    private static let nightBackgroundColor = Color(hex: "#000000")!
+    private static let nightBackgroundColor = Color(hex: "#282828")! 
     // https://github.com/readium/readium-css/blob/master/css/src/modules/ReadiumCSS-sepia_mode.css
     private static let sepiaContentColor = Color(hex: "#121212")!
     private static let sepiaBackgroundColor = Color(hex: "#faf4e8")!

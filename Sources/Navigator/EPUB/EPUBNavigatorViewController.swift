@@ -27,6 +27,8 @@ public protocol EPUBNavigatorDelegate: VisualNavigatorDelegate, SelectableNaviga
 
     /// Implement `NavigatorDelegate.navigator(presentError:)` instead.
     func presentError(_ error: NavigatorError)
+
+    func didSubmitPreferences()
 }
 
 public extension EPUBNavigatorDelegate {
@@ -37,6 +39,7 @@ public extension EPUBNavigatorDelegate {
     func didChangedDocumentPage(currentDocumentIndex: Int) {}
     func didNavigateViaInternalLinkTap(to documentIndex: Int) {}
     func presentError(_ error: NavigatorError) {}
+    func didSubmitPreferences() {}
 }
 
 public typealias EPUBContentInsets = (top: CGFloat, bottom: CGFloat)
@@ -859,6 +862,7 @@ open class EPUBNavigatorViewController: UIViewController,
         applySettings()
 
         delegate?.navigator(self, presentationDidChange: presentation)
+        delegate?.didSubmitPreferences()
     }
 
     public func editor(of preferences: EPUBPreferences) -> EPUBPreferencesEditor {
@@ -1198,5 +1202,20 @@ extension EPUBNavigatorViewController: PaginationViewDelegate {
 
     func paginationView(_ paginationView: PaginationView, positionCountAtIndex index: Int) -> Int {
         spreads[index].positionCount(in: readingOrder, positionsByReadingOrder: positionsByReadingOrder)
+    }
+}
+
+extension UIColor {
+    func toHexString() -> String {
+        var rValue: CGFloat = 0
+        var gValue: CGFloat = 0
+        var bValue: CGFloat = 0
+        var alpha: CGFloat = 0
+
+        getRed(&rValue, green: &gValue, blue: &bValue, alpha: &alpha)
+
+        let rgb = Int(rValue * 255)<<16 | Int(gValue * 255)<<8 | Int(bValue * 255)<<0
+
+        return String(format: "#%06x", rgb)
     }
 }
