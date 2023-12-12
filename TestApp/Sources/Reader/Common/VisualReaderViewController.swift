@@ -64,7 +64,7 @@ class VisualReaderViewController<N: UIViewController & Navigator>: ReaderViewCon
 
         positionLabel.translatesAutoresizingMaskIntoConstraints = false
         positionLabel.font = .systemFont(ofSize: 12)
-        positionLabel.textColor = .darkGray
+        positionLabel.textColor = .gray
         // Prevents VoiceOver from selecting the position label while reading
         // the page.
         positionLabel.isAccessibilityElement = false
