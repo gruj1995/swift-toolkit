@@ -49,12 +49,23 @@ public struct EditingAction: Hashable {
         self.init(kind: .custom(UIMenuItem(title: title, action: action)))
     }
 
+    public mutating func setTitle(title: String) {
+        switch kind {
+        case .native(var nativeTitle):
+            nativeTitle = title
+            kind = .native(nativeTitle)
+        case .custom(let customItem):
+            customItem.title = title
+            kind = .custom(customItem)
+        }
+    }
+
     enum Kind: Hashable {
         case native(String)
         case custom(UIMenuItem)
     }
 
-    let kind: Kind
+    var kind: Kind
 
     init(kind: Kind) {
         self.kind = kind
