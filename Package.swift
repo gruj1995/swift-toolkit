@@ -97,6 +97,7 @@ let package = Package(
                 "EPUB/Scripts",
             ],
             resources: [
+                .copy("Assets.xcassets"),
                 .copy("EPUB/Assets"),
                 .process("Resources"),
             ]

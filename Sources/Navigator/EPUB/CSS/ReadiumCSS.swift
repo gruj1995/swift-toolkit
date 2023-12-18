@@ -4,7 +4,7 @@
 //  available in the top-level LICENSE file of the project.
 //
 
-import Foundation
+import UIKit
 import R2Shared
 import ReadiumInternal
 import SwiftSoup
@@ -38,6 +38,21 @@ extension ReadiumCSS {
                 case .light: return nil
                 case .dark: return .night
                 case .sepia: return .sepia
+                case .system:
+                    if #available(iOS 13.0, *) {
+                        let userInterfaceStyle = UITraitCollection.current.userInterfaceStyle
+                        print("__++++ \(userInterfaceStyle)")
+                        switch userInterfaceStyle {
+                        case .dark: 
+                            return .night
+                        case .light:
+                            return .day
+                        default:
+                            return nil
+                        }
+                    } else {
+                        return nil
+                    }
                 }
             }(),
             darkenImages: settings.imageFilter == .darken,

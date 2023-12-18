@@ -377,7 +377,7 @@ public final class EPUBPreferencesEditor: StatefulPreferencesEditor<EPUBPreferen
             setting: \.theme,
             defaultEffectiveValue: .light,
             isEffective: { [layout] _ in layout == .reflowable },
-            supportedValues: [.light, .dark]
+            supportedValues: [.system, .light, .dark]
         )
 
     /// Scale applied to all element font sizes.

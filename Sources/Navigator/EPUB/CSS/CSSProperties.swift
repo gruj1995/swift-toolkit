@@ -546,6 +546,7 @@ public enum CSSColCount: String, CSSConvertible {
 }
 
 public enum CSSAppearance: String, CSSConvertible {
+    case day = "readium-default-on"
     case night = "readium-night-on"
     case sepia = "readium-sepia-on"
 
