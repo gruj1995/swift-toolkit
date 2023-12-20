@@ -93,12 +93,7 @@ public enum Theme: String, Codable, Hashable {
         case .light: return Theme.dayContentColor
         case .dark: return Theme.nightContentColor
         case .sepia: return Theme.sepiaContentColor
-        case .system: 
-            if #available(iOS 13.0, *) {
-                return Theme.systemContentColor
-            } else {
-                return Theme.systemContentColor
-            }
+        case .system: return Color(uiColor: UIColor(named: "content", in: .module, compatibleWith: nil) ?? .yellow)!
         }
     }
 
@@ -107,7 +102,7 @@ public enum Theme: String, Codable, Hashable {
         case .light: return Theme.dayBackgroundColor
         case .dark: return Theme.nightBackgroundColor
         case .sepia: return Theme.sepiaBackgroundColor
-        case .system: return Theme.systemBackgroundColor
+        case .system: return Color(uiColor: UIColor(named: "background", in: .module, compatibleWith: nil) ?? .red)!
         }
     }
 
@@ -120,9 +115,6 @@ public enum Theme: String, Codable, Hashable {
     // https://github.com/readium/readium-css/blob/master/css/src/modules/ReadiumCSS-sepia_mode.css
     private static let sepiaContentColor = Color(hex: "#121212")!
     private static let sepiaBackgroundColor = Color(hex: "#faf4e8")!
-    // 系統主題色
-    private static let systemContentColor = Color(uiColor: UIColor(named: "content", in: .module, compatibleWith: nil) ?? .yellow)!
-    private static let systemBackgroundColor = Color(uiColor: UIColor(named: "background", in: .module, compatibleWith: nil) ?? .red)!
 }
 
 /// Number of columns displayed in a reflowable document.

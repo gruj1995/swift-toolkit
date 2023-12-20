@@ -35,13 +35,12 @@ extension ReadiumCSS {
             pageMargins: settings.pageMargins,
             appearance: {
                 switch settings.theme {
-                case .light: return nil
+                case .light: return .day
                 case .dark: return .night
                 case .sepia: return .sepia
                 case .system:
                     if #available(iOS 13.0, *) {
                         let userInterfaceStyle = UITraitCollection.current.userInterfaceStyle
-                        print("__++++ \(userInterfaceStyle)")
                         switch userInterfaceStyle {
                         case .dark: 
                             return .night

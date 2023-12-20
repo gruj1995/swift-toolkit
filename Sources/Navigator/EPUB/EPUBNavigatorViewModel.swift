@@ -291,7 +291,7 @@ final class EPUBNavigatorViewModel: Loggable {
             let appearance = config.userSettings.userProperties.getProperty(reference: ReadiumCSSReference.appearance.rawValue) as? Enumerable,
             appearance.values.count > appearance.index
         else {
-            return .light
+            return .system
         }
         let value = appearance.values[appearance.index]
         switch value {

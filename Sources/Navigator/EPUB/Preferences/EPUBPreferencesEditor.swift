@@ -375,7 +375,7 @@ public final class EPUBPreferencesEditor: StatefulPreferencesEditor<EPUBPreferen
         enumPreference(
             preference: \.theme,
             setting: \.theme,
-            defaultEffectiveValue: .light,
+            defaultEffectiveValue: .system,
             isEffective: { [layout] _ in layout == .reflowable },
             supportedValues: [.system, .light, .dark]
         )

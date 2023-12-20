@@ -171,7 +171,7 @@ public struct EPUBSettings: ConfigurableSettings {
                 ?? defaults.textNormalization
                 ?? false,
             theme: preferences.theme
-                ?? .light,
+                ?? .system,
             typeScale: preferences.typeScale
                 ?? defaults.typeScale,
             verticalText: verticalText,
